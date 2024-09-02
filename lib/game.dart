@@ -90,6 +90,7 @@ class _GamePageState extends State<GamePage> {
           occupied[index] = currentPlayer;
           changeTurn();
           checkForWinner();
+          _checkforDraw();
         });
       },
       child: Container(
@@ -156,6 +157,22 @@ class _GamePageState extends State<GamePage> {
           return;
         }
       }
+    }
+  }
+
+  _checkforDraw() {
+    if (gameEnd) {
+      return;
+    }
+    bool draw = true;
+    for (var occupiedPlayer in occupied) {
+      if (occupiedPlayer.isEmpty) {
+        draw = false;
+      }
+    }
+    if (draw) {
+      showGameOverMessage("Draw");
+      gameEnd = true;
     }
   }
 
